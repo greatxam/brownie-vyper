@@ -1,0 +1,5 @@
+.*
+!.gitignore
+data/
+src/brownie-vyper/build/
+src/brownie-vyper/reports/

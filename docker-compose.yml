@@ -1,0 +1,32 @@
+version: "3.3"
+
+services:
+  node_1:
+    image: ethereum/client-go:stable
+    command: --datadir /root/data --dev --vmdebug --port 30303 --http.port 8545 --http.addr "0.0.0.0" --http
+      --http.corsdomain "https://remix.ethereum.org,http://remix.ethereum.org"
+      --http.api "db,eth,net,web3,personal,net,debug"
+    networks:
+      node_net:
+        ipv4_address: 172.22.0.7
+    ports:
+      - "8545:8545"
+      - "30303:30303"
+    volumes:
+      - ./data/ethereum/node_1:/root/data:rw
+  contract:
+    build: .
+    command: tail -f /dev/null
+    volumes:
+      -  ./src/brownie-vyper:/brownie-vyper
+    networks:
+      - node_net
+    depends_on:
+      - node_1
+
+networks:
+  node_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.22.0.0/16"
