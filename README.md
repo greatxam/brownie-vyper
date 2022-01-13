@@ -16,12 +16,12 @@ docker-compose up
 
 ***Connecting Brownie to Geth***
 ```
-docker exec <brownie_container> brownie networks add <env> <id> host=<geth_provider_url>:<port> chainid=<chain_id>
+docker-compose exec <brownie_container> brownie networks add <env> <id> host=<geth_provider_url>:<port> chainid=<chain_id>
 ```
 
 Example:
 ```
-docker exec contract brownie networks add DevEth deveth host=http://172.22.0.7:8545 chainid=1234
+docker-compose exec contract brownie networks add DevEth deveth host=http://172.22.0.7:8545 chainid=1234
 ```
 
 This should be done on the `docker-compose.yml`, service `command`.
@@ -48,7 +48,7 @@ services:
 # Testing
 ***Manual Brownie connection to Geth***
 ```
-docker exec contract brownie console
+docker-compose exec contract brownie console
 ```
 
 Type `network.is_connected()` in the brownie console.
